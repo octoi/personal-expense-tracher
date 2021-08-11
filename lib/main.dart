@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expense_tracker/widgets/transaction_list.dart';
+import 'package:personal_expense_tracker/widgets/user_transaction.dart';
 
 import './models/transaction.dart';
 
@@ -28,9 +28,6 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,33 +46,7 @@ class MyHomePage extends StatelessWidget {
               child: Text('CHART !!'),
             ),
           ),
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Title'),
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Amount'),
-                    controller: amountController,
-                  ),
-                  FlatButton(
-                    child: Text('Add Transaction'),
-                    textColor: Colors.purple,
-                    onPressed: () {
-                      print(titleController.value);
-                      print(amountController.value);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-          TransactionList(),
+          UserTransaction(),
         ],
       ),
     );
