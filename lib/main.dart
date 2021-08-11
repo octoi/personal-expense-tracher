@@ -7,6 +7,11 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Personal Expenses',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+      ),
       home: MyHomePage(),
     ),
   );
@@ -63,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('Personal Expenses'),
         actions: [
           IconButton(
             onPressed: () => _startAddNewTransaction(context),
