@@ -37,7 +37,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -46,6 +46,27 @@ class MyHomePage extends StatelessWidget {
               elevation: 0.0,
               color: Colors.blue,
               child: Text('CHART !!'),
+            ),
+          ),
+          Card(
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  FlatButton(
+                    child: Text('Add Transactio'),
+                    textColor: Colors.purple,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
           Column(
