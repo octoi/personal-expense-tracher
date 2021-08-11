@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_expense_tracker/widgets/chart_bar.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
@@ -7,7 +8,7 @@ class Chart extends StatelessWidget {
 
   const Chart(this.recentTransactions);
 
-  List<Map<String, Object>> get groupedTransactionValues {
+  List<Map> get groupedTransactionValues {
     return List.generate(7, (idx) {
       final weekDay = DateTime.now().subtract(Duration(days: idx));
       var totalSum = 0.00;
@@ -28,6 +29,12 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get maxSpending {
+    return groupedTransactionValues.fold(0.0, (sum, item) {
+      return sum + item['amount'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -35,7 +42,11 @@ class Chart extends StatelessWidget {
       margin: EdgeInsets.all(20.0),
       child: Row(
         children: groupedTransactionValues.map((data) {
-          return Text('${data['day']} : ${data['amount']}');
+          return CartBar(
+            data['day'],
+            data['amount'],
+            maxSpending == 0.0 ? 0.0 : data['amount'] / maxSpending,
+          );
         }).toList(),
       ),
     );
