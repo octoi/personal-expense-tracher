@@ -40,7 +40,7 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20.0),
-      child: Container(
+      child: Padding(
         padding: EdgeInsets.all(10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
