@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -10,13 +11,13 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
-
-  final amountController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  var _selectedDate;
 
   void _submitData() {
-    final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
+    final enteredTitle = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
@@ -34,7 +35,14 @@ class _NewTransactionState extends State<NewTransaction> {
       initialDate: _date,
       firstDate: DateTime(_date.year),
       lastDate: _date,
-    );
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -47,19 +55,25 @@ class _NewTransactionState extends State<NewTransaction> {
           children: [
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               keyboardType: TextInputType.number,
-              controller: amountController,
+              controller: _amountController,
               onSubmitted: (_) => _submitData(),
             ),
             Container(
               height: 70.0,
               child: Row(children: [
-                Text('No Date Chosen'),
+                Expanded(
+                  child: Text(
+                    _selectedDate == null
+                        ? 'No Date Chosen'
+                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                  ),
+                ),
                 FlatButton(
                   child: Text(
                     'Choose Date',
