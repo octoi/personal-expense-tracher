@@ -14,7 +14,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
-  void submitData() {
+  void _submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
@@ -24,6 +24,17 @@ class _NewTransactionState extends State<NewTransaction> {
 
     widget.addTx(enteredTitle, enteredAmount);
     Navigator.pop(context);
+  }
+
+  void _presentDatePicker() {
+    DateTime _date = DateTime.now();
+
+    showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(_date.year),
+      lastDate: _date,
+    );
   }
 
   @override
@@ -37,13 +48,13 @@ class _NewTransactionState extends State<NewTransaction> {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               keyboardType: TextInputType.number,
               controller: amountController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
             ),
             Container(
               height: 70.0,
@@ -55,7 +66,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   textColor: Theme.of(context).primaryColor,
-                  onPressed: () {},
+                  onPressed: _presentDatePicker,
                 )
               ]),
             ),
@@ -63,7 +74,7 @@ class _NewTransactionState extends State<NewTransaction> {
               child: Text('Add Transaction'),
               color: Theme.of(context).primaryColor,
               textColor: Theme.of(context).textTheme.button?.color,
-              onPressed: submitData,
+              onPressed: _submitData,
             ),
           ],
         ),
