@@ -4,10 +4,12 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTransaction;
 
   const TransactionList({
     Key? key,
     required this.transactions,
+    required this.deleteTransaction,
   }) : super(key: key);
 
   @override
@@ -60,10 +62,14 @@ class TransactionList extends StatelessWidget {
                         color: Colors.grey,
                       ),
                     ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => deleteTransaction(tx.id),
+                    ),
                   ),
                 );
               },
-              // children: transactions.map((tx) {}).toList(),
               itemCount: transactions.length,
             ),
     );
